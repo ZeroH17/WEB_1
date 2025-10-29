@@ -1,0 +1,135 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    font-size: 32px;
+}
+
+body {
+    height: 100vh;
+    background: linear-gradient(to bottom, #8e2de2, #ff9966);
+    display: flex;
+    flex-direction: column;
+}
+
+   
+#header {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(to right, #8e2de2, #ff3c3c);
+    padding: 10px 30px;
+    color: white;
+    border-bottom: 1px solid black;
+}
+
+.Home-logo img {
+    color: black;
+    width: 50%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#Content-left {
+    position: absolute;
+    top: 7%;
+    height: 93%;
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-right: 1px solid black;
+    padding-top: 80px;
+}
+
+#Content-left .avatar {
+    background-color: white;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    padding: 100px;
+    margin-bottom: 100px;
+}
+
+#Content-left a {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    width: 100%;
+    text-align: center;
+    margin: 20px 0;
+    padding: 10px;
+}
+
+#Content-right {
+    position: absolute;
+    top: 7%;
+    left: 20%;
+    height: 93%;
+    width: 80%;
+    padding: 40px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+/* Nhóm Họ - Tên */
+#Content-right .Name {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    width: 60%;
+}
+
+/* Các ô nhập */
+#Content-right input {
+    width: 60%;
+    height: 40px;
+    border: none;
+    border-radius: 10px;
+    padding-left: 15px;
+    font-size: 15px;
+    background: linear-gradient(to right, #ffffff, #f2f2f2);
+    box-shadow: 0 0 5px rgba(0,0,0,0.2);
+    margin-top: 20px;
+    outline: none;
+}
+
+#Content-right .Name input {
+    width: 48%; /* mỗi ô chiếm khoảng nửa hàng */
+}
+
+/* Nút bấm */
+#Content-right .btn-save,
+#Content-right .btn-save_exit {
+    width: 120px;
+    height: 40px;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    color: white;
+    cursor: pointer;
+    margin: 30px 10px 0 10px;
+    transition: 0.3s;
+}
+
+#Content-right .btn-save {
+    background-color: #27ae60;
+}
+
+#Content-right .btn-save_exit {
+    background-color: #e74c3c;
+}
+
+#Content-right .btn-save:hover {
+    background-color: #2ecc71;
+}
+
+#Content-right .btn-save_exit:hover {
+    background-color: #ff5c5c;
+}
