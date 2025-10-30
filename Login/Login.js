@@ -24,5 +24,5 @@ document.getElementById("loginBtn").addEventListener("click", function() {
     alert(`Chào mừng ${user.username} đăng nhập thành công!`);
 
     // Chuyển hướng sau khi đăng nhập thành công (tùy chỉnh)
-    window.location.href = "/Home/Home.html";
+    window.location.href = "/User/index.html";
 });
