@@ -4,23 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="Login.css">
-    <title>Document</title>
+    <title>Đăng nhập</title>
 </head>
 <body>
     <div id="Container">
         <div id="Login_box">
             <img src="/image/Untitled.svg" alt="">
             <h1>ĐĂNG NHẬP</h1>
-            <label for="Username">Tên đăng nhập:</label>
-            <input class="input_field" type="text">
-            <label for="Password">Mật khẩu:</label>
-            <input class="input_field1" type="password">
-            <button class="btn_login"><b>ĐĂNG NHẬP</b></button>
-            <label class="new_account" for="New_account">BẠN CHƯA CÓ TÀI KHOẢN? <a href="/Register/Register.html"> ĐĂNG KÝ</a></label>
+
+            <label for="username">Tên đăng nhập:</label>
+            <input id="username" class="input_field" type="text">
+
+            <label for="password">Mật khẩu:</label>
+            <input id="password" class="input_field1" type="password">
+
+            <button class="btn_login" id="loginBtn"><b>ĐĂNG NHẬP</b></button>
+
+            <label class="new_account">BẠN CHƯA CÓ TÀI KHOẢN?
+                <a href="/Register/Register.html">ĐĂNG KÝ</a>
+            </label>
         </div>
         <div id="Poster">
             <img src="/image/POSTER.png" alt="Poster">
         </div>
     </div>
+
+    <script src="Login.js"></script>
 </body>
 </html>

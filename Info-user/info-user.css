@@ -3,7 +3,7 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
-    font-size: 32px;
+    font-size: 24px;
 }
 
 body {
@@ -36,9 +36,9 @@ body {
 
 #Content-left {
     position: absolute;
-    top: 7%;
-    height: 93%;
-    width: 20%;
+    top: 10.5%;
+    height: 89.5%;
+    width: 30%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -52,7 +52,7 @@ body {
     height: 150px;
     border-radius: 50%;
     padding: 100px;
-    margin-bottom: 100px;
+    margin-bottom: 10px;
 }
 
 #Content-left a {
@@ -71,65 +71,88 @@ body {
     left: 20%;
     height: 93%;
     width: 80%;
-    padding: 40px 0;
+    padding-top: 120px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-start;
+    gap: 20px; /* tạo khoảng cách đều giữa các hàng */
 }
 
-/* Nhóm Họ - Tên */
+/* Hàng họ và tên */
 #Content-right .Name {
     display: flex;
     justify-content: center;
+    align-items: center;
     gap: 20px;
-    width: 60%;
+    width: 52%;
 }
 
-/* Các ô nhập */
+/* Input chung */
 #Content-right input {
-    width: 60%;
-    height: 40px;
+    margin-left: 20px;
+    width: 50%;
+    height: 45px;
     border: none;
     border-radius: 10px;
     padding-left: 15px;
-    font-size: 15px;
+    font-size: 16px;
     background: linear-gradient(to right, #ffffff, #f2f2f2);
-    box-shadow: 0 0 5px rgba(0,0,0,0.2);
-    margin-top: 20px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.15);
     outline: none;
 }
 
+/* Input họ tên riêng (chia đôi hàng) */
 #Content-right .Name input {
-    width: 48%; /* mỗi ô chiếm khoảng nửa hàng */
+    width: 50%;
 }
 
-/* Nút bấm */
+/* Nút */
+.btn-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    margin-top: 30px;
+}
+
 #Content-right .btn-save,
 #Content-right .btn-save_exit {
-    width: 120px;
-    height: 40px;
     border: none;
     border-radius: 10px;
-    font-size: 16px;
-    color: white;
+    height: 50px;
     cursor: pointer;
-    margin: 30px 10px 0 10px;
-    transition: 0.3s;
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    text-transform: uppercase;
+    transition: 0.4s;
+    background-size: 200% auto;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 
+/* Lưu */
 #Content-right .btn-save {
-    background-color: #27ae60;
-}
-
-#Content-right .btn-save_exit {
-    background-color: #e74c3c;
+    width: 180px;
+    background-image: linear-gradient(to right, #1D976C 0%, #93F9B9 51%, #1D976C 100%);
 }
 
 #Content-right .btn-save:hover {
-    background-color: #2ecc71;
+    background-position: right center;
+}
+
+/* Lưu & thoát */
+#Content-right .btn-save_exit {
+    width: 220px;
+    background-image: linear-gradient(to right, #EB3349 0%, #F45C43 51%, #EB3349 100%);
 }
 
 #Content-right .btn-save_exit:hover {
-    background-color: #ff5c5c;
+    background-position: right center;
+}
+
+input::placeholder {
+    color: #000;  
+    font-weight: 700;  
+    font-size: 17px;
+    opacity: 1;
 }
