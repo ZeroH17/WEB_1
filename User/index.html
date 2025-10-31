@@ -98,16 +98,19 @@
     }
 
     #userAvatar {
-      width: 40px;
-      height: 40px;
+      width: 50px;
+      height: 50px;
       border-radius: 50%;
-      background-color: white;
+      background-color: #ccc;
       background-size: cover;
       background-position: center;
+      background-repeat: no-repeat;
       cursor: pointer;
-      border: 2px solid #fff;
-      transition: 0.3s;
+      display: inline-block;
+      vertical-align: middle;
+      margin-left: 10px;
     }
+
 
     #userAvatar:hover {
       transform: scale(1.05);
@@ -142,5 +145,6 @@
   </section>
 
   <script src="Home.js"></script>
+  <script src="/Info-user/ChangeBackground.js"></script>
 </body>
 </html>
