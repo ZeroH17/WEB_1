@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Giao diện đặt món</title>
+  <link rel="stylesheet" href="menu.css" />
+   <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<body>
+  <div class="header">
+    <i class="fa-solid fa-house" style="font-size: 30px;"></i>
+     <div class="search-container">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <input type="text" placeholder="Tìm kiếm..." />
+
+  <div class="filter-container">
+    <i id="filterIcon" class="fa-solid fa-filter"></i>
+    <div id="filterBox" class="filter-box hidden">
+        <div class="filter-header">
+            <button id="btnLoai" class="active">Loại</button>
+            <button id="btnGia">Giá</button>
+        </div>
+
+        <div id="filterLoai" class="filter-content">
+            <button class="tag">Gà giòn</button>
+            <button class="tag">Gà phô mai</button>
+            <button class="tag">Pizza</button>
+            <button class="tag">Mỳ Ý</button>
+        </div>
+
+        <div id="filterGia" class="filter-content hidden">
+            <input type="range" id="priceRange" min="0" max="1000000" value="500000">
+            <div class="price-labels">
+                <span>0</span>
+                 <span id="maxPrice">1.000.000</span>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+   <div class="user">
+    <i class="fa-solid fa-bell" style="font-size: 30px;"></i>
+    <h4>User name</h4>
+  <i class="fa-solid fa-circle-user" style="font-size: 30px;"></i>
+   </div>
+  </div>
+  
+  <div class="product">
+    <div class="production">
+    <div class="product-container">
+        <div class="list-product">Gà Rán</div>
+         <div class="list-product">Gà Phô Mai</div>
+          <div class="list-product">Mì Ý</div>
+           <div class="list-product">PIZZA</div>
+    </div>
+    <hr style="border: 1px solid black; width: 100%;margin-top: 20px;">
+    <div class="production-container">
+<div class="production-container">
+  <div class="production-item" > Hình món 1  <hr style="border: 1px solid black; width: 100%;"></div>
+  <div class="production-item">Hình món 2  <hr style="border: 1px solid black; width: 100%;"></div>
+  <div class="production-item">Hình món 3 <hr style="border: 1px solid black; width: 100%;"></div>
+
+  <div class="production-item">Hình món 4 <hr style="border: 1px solid black; width: 100%;"></div>
+  <div class="production-item">Hình món 5 <hr style="border: 1px solid black; width: 100%;"></div>
+  <div class="production-item">Hình món 6 <hr style="border: 1px solid black; width: 100%;"></div>
+</div>
+
+    </div>
+    </div>
+    <div class="cart"> 
+       <div class="cart-container">
+  <div class="cart-item">
+    <div class="cart-icon"><i class="fa-solid fa-cart-shopping"></i></div>
+    <div class="cart-text">Giỏ Hàng</div>
+  </div>
+  <hr style="border: 1px solid black; width: 100%;">
+  <div style="height: 20px;"></div>
+</div>
+    </div>
+  </div>
+<script src="menu.js"></script>
+</body>
+</html>
