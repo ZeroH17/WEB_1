@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Lịch sử đơn hàng</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/lichsudonhang.css">
+</head>
+<body>
+  <div class="thanhdieuhuong">
+    <div class="logo-top"><img src="https://cdn-icons-png.flaticon.com/512/25/25694.png" alt="Home"></div>
+    <div style="font-weight:700;color:#fff">LỊCH SỬ ĐƠN HÀNG</div>
+    <div></div>
+  </div>
+  <div class="noidung">
+    <div class="ben-trai">
+      <div class="avatar"></div>
+      <div class="menu">
+        <a href="quanlydonhang.html">Quản lý đơn hàng</a>
+        <a href="thongtinkhachhang.html">Thông tin khách hàng</a>
+        <a href="lichsudonhang.html">Lịch sử đơn hàng</a>
+        <a href="../index.html">Đăng xuất</a>
+      </div>
+    </div>
+    <div class="ben-phai">
+      <div class="rectangle-bg"></div>
+      <div class="right-inner">
+        <div class="search-row">
+          <input id="searchInput" class="search-input" placeholder="Tìm theo mã đơn hoặc tên món..." />
+          <div id="searchCount" class="search-count">0 kết quả</div>
+        </div>
+        <div class="orders-list" id="ordersList"></div>
+      </div>
+    </div>
+  </div>
+  <div id="popup">
+    <div class="popup-content">
+      <div class="bill-header">HÓA ĐƠN</div>
+      <div class="bill-body" id="billBody"></div>
+      <div class="bill-total"><span>Tổng tiền:</span><span id="billTotal"></span></div>
+      <button class="close-btn" id="closePopup">Đóng</button>
+    </div>
+  </div>
+  <script src="js/lichsudonhang.js"></script>
+</body>
+</html>
