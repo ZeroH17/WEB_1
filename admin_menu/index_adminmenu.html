@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="vi">
+    <head>
+        <style>
+            .header {
+                width: 1924px;
+                height: 185px;
+                padding: 16px;
+                background: linear-gradient(90deg, #7B4397 0%, #DC2430 100%);
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }  
+            .home-btn {
+                width: 74px;
+                height: 74px;
+                background: linear-gradient(90deg, #7B4397 0%);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                transition: all 0.2s ease;
+            }
+.search-container {
+    /* Vị trí trên giao diện */
+    position: absolute; 
+    top: 48px; /* Cách lề trên */
+    left: 227px; /* Cách lề trái */
+    
+    /* Kích thước */
+    width: 611px;
+    height: 73px;
+    
+    /* Bo góc */
+    border-radius: 50px;
+    
+    /* Màu nền chính (Tím/Đỏ tía) - Lưu ý: Màu này là ước tính */
+    background-color: #A33A89; /* Tạm chọn một màu tím/đỏ tía tương đồng */
+    
+    /* Căn chỉnh nội dung bên trong */
+    display: flex;
+    align-items: center;
+    padding: 0 16px; /* Khoảng đệm nhỏ hai bên cho icon */
+}
+
+/* Phần ô nhập liệu (Input Field) - Lớp overlay màu đen mờ */
+.search-input {
+    /* Đảm bảo chiếm không gian linh hoạt */
+    flex-grow: 1; 
+    height: 100%;
+    
+    /* Màu đen với độ mờ 45% */
+    background-color: rgba(0, 0, 0, 0.45); 
+    
+    /* Loại bỏ border mặc định và căn chỉnh */
+    border: none;
+    outline: none;
+    color: white; /* Màu chữ */
+    font-size: 16px;
+    
+    /* Vì input nằm trong container bo góc, có thể cần thêm bo góc bên trong cho hợp lý */
+    /* Hoặc chỉ cần áp dụng cho ô nhập liệu có kích thước nhỏ hơn một chút */
+    /* Nếu input lấp đầy container, bo góc của container sẽ quyết định */
+}
+
+/* Icon (Kính lúp, Bộ lọc) */
+.search-icon, .filter-icon {
+    color: white; /* Màu trắng */
+    font-size: 24px; /* Kích thước icon (tùy chỉnh) */
+    margin: 0 10px; 
+    cursor: pointer;
+}
+
+    </style>
+
+    </head>
+    <body style="margin: 0;padding: 0">
+        <div class="header">
+        <a href="../User/index.html" class="home-btn" title="Trang chủ">
+            <svg width="74" height="74" viewBox="0 0 74 74" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M40.1441 1.23586C38.3661 -0.411954 35.6195 -0.411954 33.8559 1.23586L1.47524 31.3013C0.0874956 32.6022 -0.375085 34.6114 0.318786 36.3748C1.01266 38.1383 2.70397 39.3091 4.61211 39.3091H6.92502V64.7491C6.92502 69.8515 11.0738 74 16.1766 74H57.8089C62.9118 74 67.0605 69.8515 67.0605 64.7491V39.3091H69.3734C71.2816 39.3091 72.9873 38.1383 73.6812 36.3748C74.3751 34.6114 73.9125 32.5878 72.5248 31.3013L40.1441 1.23586ZM34.6799 46.2473H39.3057C43.1364 46.2473 46.2444 49.355 46.2444 53.1855V67.0618H27.7412V53.1855C27.7412 49.355 30.8491 46.2473 34.6799 46.2473Z" fill="black"/>
+            </svg>
+        </a>
+        <div class="search-container">
+    <span class="search-icon">🔍</span> <input type="text" class="search-input" placeholder="Tìm kiếm..."> 
+    <span class="filter-icon">⚙️</span> </div>
+        </div>
+    </body>
+
+
+
+</html>
