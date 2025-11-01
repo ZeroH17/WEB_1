@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lịch Sử Đơn Hàng</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+
+      body {
+        background: linear-gradient(to bottom, #8a2be2, #ff7f50);
+        min-height: 100vh;
+        color: #333;
+      }
+
+      header {
+        background: linear-gradient(to right, #8a2be2, #ff3366);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 40px;
+      }
+
+      header .logo {
+        background-color: white;
+        color: black;
+        border-radius: 50%;
+        width: 60px;
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 600;
+      }
+
+      nav a {
+        margin: 0 15px;
+        text-decoration: none;
+        color: white;
+        font-weight: 500;
+      }
+
+      nav a:hover {
+        text-decoration: underline;
+      }
+
+      .admin-menu {
+        position: relative;
+        display: inline-block;
+      }
+
+      .dropdown {
+        position: absolute;
+        top: 45px;
+        right: 0;
+        background-color: #111;
+        border-radius: 10px;
+        display: none;
+        flex-direction: column;
+        min-width: 180px;
+        padding: 10px 0;
+      }
+
+      .dropdown a {
+        color: white;
+        padding: 10px 20px;
+        text-decoration: none;
+        display: block;
+      }
+
+      .dropdown a:hover {
+        background-color: #333;
+      }
+
+      .admin-menu:hover .dropdown {
+        display: flex;
+      }
+
+      /* Nội dung chính */
+      .container {
+        max-width: 900px;
+        margin: 50px auto;
+        background: rgba(255, 255, 255, 0.9);
+        padding: 25px;
+        border-radius: 15px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      }
+
+      h2 {
+        text-align: center;
+        margin-bottom: 25px;
+        color: #333;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      th,
+      td {
+        text-align: center;
+        padding: 12px;
+        border-bottom: 1px solid #ccc;
+      }
+
+      th {
+        background-color: #8a2be2;
+        color: white;
+      }
+
+      .status {
+        padding: 5px 10px;
+        border-radius: 6px;
+        font-weight: 600;
+      }
+
+      .completed {
+        background-color: #d4edda;
+        color: #155724;
+      }
+
+      .empty {
+        text-align: center;
+        padding: 20px;
+        font-style: italic;
+        color: #666;
+      }
+
+      button {
+        background-color: #8a2be2;
+        color: white;
+        border: none;
+        padding: 8px 15px;
+        border-radius: 6px;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: #6f1dbb;
+      }
+
+      .detail-box {
+        display: none;
+        background-color: #f7f7f7;
+        padding: 10px;
+        margin-top: 10px;
+        border-radius: 6px;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="logo">Logo</div>
+      <nav>
+        <a href="#">Trang Chủ</a>
+        <a href="#">Thực Đơn</a>
+        <a href="#">Liên Hệ</a>
+        <a href="#">Giới Thiệu</a>
+      </nav>
+
+      <div class="admin-menu">
+        <span>Admin ☰</span>
+        <div class="dropdown">
+          <a href="#">Quản lý đơn hàng</a>
+          <a href="#">Thông tin khách hàng</a>
+          <a href="#">Lịch sử đơn hàng</a>
+          <a href="#">Đăng xuất</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="container">
+      <h2>Lịch Sử Đơn Hàng</h2>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Mã Đơn</th>
+            <th>Ngày Đặt</th>
+            <th>Tổng Tiền</th>
+            <th>Trạng Thái</th>
+            <th>Chi Tiết</th>
+          </tr>
+        </thead>
+        <tbody id="orderList">
+          <tr>
+            <td colspan="5" class="empty">
+              Chưa có đơn hàng nào được thanh toán.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <script>
+      // Khi hệ thống thanh toán xong, có thể cập nhật dữ liệu như sau:
+      // const newOrders = JSON.parse(localStorage.getItem('lichSuDonHang')) || [];
+      // rồi hiển thị ra bảng này.
+
+      // Ví dụ sau này bạn chỉ cần viết:
+      // showOrders(newOrders);
+
+      function showOrders(orders) {
+        const orderList = document.getElementById("orderList");
+        orderList.innerHTML = "";
+
+        if (!orders || orders.length === 0) {
+          orderList.innerHTML = `<tr><td colspan="5" class="empty">Chưa có đơn hàng nào được thanh toán.</td></tr>`;
+          return;
+        }
+
+        orders.forEach((order) => {
+          const row = document.createElement("tr");
+          row.innerHTML = `
+          <td>${order.id}</td>
+          <td>${order.date}</td>
+          <td>${order.total}</td>
+          <td><span class="status completed">${order.status}</span></td>
+          <td><button onclick="toggleDetail('${order.id}')">Xem</button></td>
+        `;
+          orderList.appendChild(row);
+
+          const detailRow = document.createElement("tr");
+          detailRow.innerHTML = `
+          <td colspan="5">
+            <div class="detail-box" id="detail-${order.id}">
+              ${order.items
+                .map((i) => `<p>${i.name} — SL: ${i.qty} — Giá: ${i.price}</p>`)
+                .join("")}
+            </div>
+          </td>
+        `;
+          orderList.appendChild(detailRow);
+        });
+      }
+
+      function toggleDetail(id) {
+        const box = document.getElementById(`detail-${id}`);
+        box.style.display = box.style.display === "block" ? "none" : "block";
+      }
+    </script>
+  </body>
+</html>

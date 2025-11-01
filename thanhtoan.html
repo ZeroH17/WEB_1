@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Thanh Toán</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="thanhtoan.css" />
+</head>
+<body>
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="logo">Logo</div>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="#">Trang Chủ</a></li>
+        <li><a href="#">Thực Đơn</a></li>
+        <li><a href="#">Liên Hệ</a></li>
+        <li><a href="#">Giới Thiệu</a></li>
+      </ul>
+    </nav>
+    <div class="admin-section">
+      <span>Admin</span>
+      <div class="menu-icon">☰</div>
+    </div>
+  </header>
+
+  <!-- Form Thanh Toán -->
+  <section class="payment-container">
+    <div class="payment-box">
+      <h2 >Thanh Toán</h2>
+
+      <label for="address">Địa chỉ</label>
+      <input type="text" id="address" placeholder="Nhập địa chỉ nhận hàng">
+
+      <h4>Chọn phương thức thanh toán</h4>
+      <div class="payment-methods">
+        <label><input type="radio" name="method" value="cod" checked> Thanh toán khi nhận hàng</label><br>
+        <label><input type="radio" name="method" value="bank"> Ngân hàng liên kết</label><br>
+        <label><input type="radio" name="method" value="card"> Thẻ</label>
+      </div>
+
+      <div id="bank-info" class="hidden">
+        <label>Ngân hàng liên kết</label>
+        <select id="bank-name">
+          <option value="">-- Chọn ngân hàng --</option>
+          <option>Vietcombank</option>
+          <option>ACB</option>
+          <option>Techcombank</option>
+          <option>MB Bank</option>
+        </select>
+        <input type="text" id="account" placeholder="Số tài khoản">
+        <input type="number" id="amount" placeholder="Số tiền">
+      </div>
+
+      <div id="card-info" class="hidden">
+        <input type="text" id="card-number" placeholder="Số thẻ">
+        <input type="month" id="card-expiry" placeholder="Ngày hết hạn">
+        <input type="password" id="card-cvv" placeholder="Mã CVV">
+      </div>
+
+      <div class="total">
+        <h3>Tổng tiền:</h3>
+        <span id="total"></span>
+      </div>
+      <button id="confirm-btn">Xác nhận</button>
+    </div>
+  </section>
+
+  <!-- Modal -->
+  <div id="success-modal" class="modal hidden">
+    <div class="modal-content">
+      <h2>🎉 Bạn đã đặt hàng thành công!</h2>
+      <p>Cảm ơn bạn đã mua hàng. Đơn hàng của bạn đang được xử lý.</p>
+      <button id="close-modal">Đóng</button>
+    </div>
+  </div>
+
+  <script src="thanhtoan.js"></script>
+</body>
+</html>

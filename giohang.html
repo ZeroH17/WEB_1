@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Giỏ Hàng</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(to bottom, #8e2de2, #ff9966);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      color: #333;
+    }
+
+    /* Thanh điều hướng */
+    .thanhdieuhuong {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: linear-gradient(to right, #8e2de2, #ff3c3c);
+      padding: 10px 40px;
+      color: white;
+    }
+
+    .logo {
+      background-color: white;
+      color: black;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+    }
+
+    .menu {
+      display: flex;
+      gap: 30px;
+      list-style: none;
+    }
+
+    .menu li a {
+      text-decoration: none;
+      color: white;
+      font-weight: bold;
+    }
+
+    .cart-container {
+      flex: 1;
+      padding: 40px 100px;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: white;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    th, td {
+      padding: 15px;
+      text-align: center;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background: linear-gradient(to right, #ff9966, #ffcc00);
+      color: black;
+      font-weight: bold;
+    }
+
+    tr:hover {
+      background-color: #f7f7f7;
+    }
+
+    .cart-actions {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+
+    .btn {
+      background: linear-gradient(to right, #ff9900, #ffcc00);
+      border: none;
+      padding: 12px 25px;
+      border-radius: 20px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      transform: scale(1.05);
+      opacity: 0.9;
+    }
+
+    .total {
+      font-size: 1.2rem;
+      color: white;
+      text-align: right;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Thanh điều hướng -->
+  <div class="thanhdieuhuong">
+    <div class="logo">Logo</div>
+    <ul class="menu">
+      <li><a href="index.html">Trang Chủ</a></li>
+      <li><a href="#">Thực Đơn</a></li>
+      <li><a href="#">Liên Hệ</a></li>
+      <li><a href="#">Giới Thiệu</a></li>
+    </ul>
+  </div>
+
+  <!-- Giỏ hàng -->
+  <div class="cart-container">
+    <h2>🛒 Giỏ Hàng Của Bạn</h2>
+
+    <table id="cartTable">
+      <thead>
+        <tr>
+          <th>Tên sản phẩm</th>
+          <th>Giá</th>
+          <th>Số lượng</th>
+          <th>Thành tiền</th>
+          <th>Hành động</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Hàng sản phẩm sẽ được thêm bằng JavaScript -->
+      </tbody>
+    </table>
+
+    <div class="total" id="totalPrice">Tổng tiền: 0₫</div>
+
+    <div class="cart-actions">
+      <button class="btn" onclick="clearCart()">🗑 Xóa tất cả</button>
+      <button class="btn" onclick="checkout()">💳 Thanh toán</button>
+    </div>
+  </div>
+
+  <script>
+    // Tải giỏ hàng từ localStorage
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    function renderCart() {
+      const tbody = document.querySelector('#cartTable tbody');
+      tbody.innerHTML = '';
+      let total = 0;
+
+      cart.forEach((item, index) => {
+        const row = document.createElement('tr');
+        const thanhTien = item.price * item.quantity;
+        total += thanhTien;
+
+        row.innerHTML = `
+          <td>${item.name}</td>
+          <td>${item.price.toLocaleString()}₫</td>
+          <td><input type="number" min="1" value="${item.quantity}" onchange="updateQuantity(${index}, this.value)"></td>
+          <td>${thanhTien.toLocaleString()}₫</td>
+          <td><button class="btn" onclick="removeItem(${index})">Xóa</button></td>
+        `;
+        tbody.appendChild(row);
+      });
+
+      document.getElementById('totalPrice').textContent = "Tổng tiền: " + total.toLocaleString() + "₫";
+    }
+
+    function updateQuantity(index, newQty) {
+      cart[index].quantity = parseInt(newQty);
+      localStorage.setItem('cart', JSON.stringify(cart));
+      renderCart();
+    }
+
+    function removeItem(index) {
+      cart.splice(index, 1);
+      localStorage.setItem('cart', JSON.stringify(cart));
+      renderCart();
+    }
+
+    function clearCart() {
+      if (confirm("Bạn có chắc muốn xóa toàn bộ giỏ hàng không?")) {
+        cart = [];
+        localStorage.removeItem('cart');
+        renderCart();
+      }
+    }
+
+    function checkout() {
+      alert("Thanh toán thành công! 🎉");
+      cart = [];
+      localStorage.removeItem('cart');
+      renderCart();
+    }
+
+    renderCart();
+  </script>
+</body>
+</html>
