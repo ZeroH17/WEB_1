@@ -1,0 +1,22 @@
+[
+  {"ten": "Gà rán truyền thống", "loai": "Gà rán", "gia": 50000, "nhap": 20, "xuat": 3, "ngay": "2025-10-16"},
+  {"ten": "Gà rán truyền thống", "loai": "Gà rán", "gia": 50000, "nhap": 20, "xuat": 2, "ngay": "2025-10-17"},
+  {"ten": "Gà rán truyền thống", "loai": "Gà rán", "gia": 50000, "nhap": 20, "xuat": 5, "ngay": "2025-10-18"},
+  {"ten": "Gà phô mai Hàn Quốc", "loai": "Gà phô mai", "gia": 65000, "nhap": 15, "xuat": 4, "ngay": "2025-10-16"},
+  {"ten": "Gà phô mai Hàn Quốc", "loai": "Gà phô mai", "gia": 65000, "nhap": 15, "xuat": 6, "ngay": "2025-10-17"},
+  {"ten": "Pizza phô mai", "loai": "Pizza", "gia": 120000, "nhap": 10, "xuat": 2, "ngay": "2025-10-16"},
+  {"ten": "Pizza phô mai", "loai": "Pizza", "gia": 120000, "nhap": 10, "xuat": 1, "ngay": "2025-10-17"},
+  {"ten": "Pizza phô mai", "loai": "Pizza", "gia": 120000, "nhap": 10, "xuat": 3, "ngay": "2025-10-18"},
+  {"ten": "Mì Ý sốt bò", "loai": "Mì Ý", "gia": 65000, "nhap": 12, "xuat": 4, "ngay": "2025-10-16"},
+  {"ten": "Mì Ý sốt bò", "loai": "Mì Ý", "gia": 65000, "nhap": 12, "xuat": 6, "ngay": "2025-10-17"},
+  {"ten": "Mì Ý sốt bò", "loai": "Mì Ý", "gia": 65000, "nhap": 12, "xuat": 7, "ngay": "2025-10-18"},
+  {"ten": "Gà rán giòn cay", "loai": "Gà rán", "gia": 55000, "nhap": 20, "xuat": 6, "ngay": "2025-10-16"},
+  {"ten": "Gà rán giòn cay", "loai": "Gà rán", "gia": 55000, "nhap": 20, "xuat": 8, "ngay": "2025-10-17"},
+  {"ten": "Gà rán giòn cay", "loai": "Gà rán", "gia": 55000, "nhap": 20, "xuat": 5, "ngay": "2025-10-18"},
+  {"ten": "Pizza hải sản", "loai": "Pizza", "gia": 135000, "nhap": 8, "xuat": 2, "ngay": "2025-10-16"},
+  {"ten": "Pizza hải sản", "loai": "Pizza", "gia": 135000, "nhap": 8, "xuat": 3, "ngay": "2025-10-17"},
+  {"ten": "Pizza hải sản", "loai": "Pizza", "gia": 135000, "nhap": 8, "xuat": 4, "ngay": "2025-10-18"},
+  {"ten": "Mì Ý kem tôm", "loai": "Mì Ý", "gia": 70000, "nhap": 10, "xuat": 5, "ngay": "2025-10-16"},
+  {"ten": "Mì Ý kem tôm", "loai": "Mì Ý", "gia": 70000, "nhap": 10, "xuat": 2, "ngay": "2025-10-17"},
+  {"ten": "Mì Ý kem tôm", "loai": "Mì Ý", "gia": 70000, "nhap": 10, "xuat": 3, "ngay": "2025-10-18"}
+]
