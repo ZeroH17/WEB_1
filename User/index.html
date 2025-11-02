@@ -3,46 +3,54 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FastFood_Wedsite</title>
+  <title>FastFood_Website</title>
   <link rel="stylesheet" href="index.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 </head>
 <body>
 
   <div class="thanhdieuhuong">
-    <div class="logo">
-        Logo
-    </div>
+    <div class="logo">Logo</div>
+
     <ul class="menu">
-        <li> <a href="#">Trang Chủ</a></li>
-        <li> <a href="../admin/admin_login.html">Trang Quản Trị</a></li>
-          <li> <a href="#">Thực Đơn</a></li>
-            <li> <a href="#">Liên Hệ</a></li>
-              <li> <a href="#">Giới Thiệu</a></li>
+      <li><a href="#">TRANG CHỦ</a></li>
+      <li><a href="../admin/admin_login.html">TRANG QUẢN TRỊ</a></li>
+      <li><a href="#">THỰC ĐƠN</a></li>
+      <li><a href="#">LIÊN HỆ</a></li>
+      <li><a href="#">GIỚI THIỆU</a></li>
     </ul>
-    <div style="display: flex;align-items: center;gap: 10px;">
-   <i class="fa-solid fa-bell" style="font-size: 30px;"></i>
-    <h4>User name</h4>
-  <i class="fa-solid fa-circle-user" style="font-size: 30px;"></i>
-  </div>
+
+    <div class="btn-group" id="authButtons">
+      <a href="Register.html" class="btn">ĐĂNG KÝ</a>
+      <a href="login_user.html" class="btn">ĐĂNG NHẬP</a>
+    </div>
+
+    <div class="user-section" id="userSection" style="display: none;">
+      <i class="fa-solid fa-bell" style="font-size: 22px; margin-right: 10px;"></i>
+      <span id="usernameDisplay">User Name</span>
+      <div id="userAvatar" style="width:45px; height:45px; border-radius:50%; background-color:#ccc; margin-left:10px; cursor: pointer;"></div>
+    </div>
   </div>
 
-   <div class="slogan">ENJOY YOUR DAY AT JOILIBEE!</div>"
-  
-  <div class="qc"><img src="../images/banner-life.jpg"></div>
-   <div class="container">
+  <div class="slogan">ENJOY YOUR DAY AT JOLLIBEE!</div>
+
+  <div class="qc"><img src="../images/banner-life.jpg" alt=""></div>
+
+  <div class="container">
     <div class="box">
-        <img src="../images/banner1.png" class="active">
-           <img src="../images/banner-life.jpg">
-          <img src="../images/cap1.jpg">   
-   </div>
-   </div>
-   <div class="container1">
+      <img src="../images/banner1.png" class="active">
+      <img src="../images/banner-life.jpg">
+      <img src="../images/cap1.jpg">   
+    </div>
+  </div>
+
+  <div class="container1">
     <div class="box1"><img src="../images/monnhe.jpg"></div>
     <div class="box1"><img src="../images/monmi.jpg"></div>
-    <div class="box1"><img src="../images/comvabuger.jpg"> </div>
-   </div>
-   <div class="footer"> 
+    <div class="box1"><img src="../images/comvabuger.jpg"></div>
+  </div>
+
+  <div class="footer"> 
     <div class="logo">LOGO</div>
     <ul>
       <li>Công ty: JOLLIBEE Việt Nam</li>
@@ -51,11 +59,15 @@
     </ul>
     <ul>
       <li>GIAO HÀNG NGAY LẬP TỨC</li>
-    <li><div class="sđt">1900-0511</div></li>
+      <li><div class="sđt">1900-0511</div></li>
     </ul>
+    <div class="logocongthuong">
+      <img src="/images/logo-da-thong-bao-bo-cong-thuong-mau-xanh.png">
+    </div>
+  </div>
 
-    <div class="logocongthuong"><img src="../images/logo-da-thong-bao-bo-cong-thuong-mau-xanh.png"></div>
-   </div>
- <script src="index.js"></script>
+  <script src="index.js"></script>
+  <script src="Home.js"></script>
+  <script src="/Info-user/ChangeBackground.js"></script>
 </body>
 </html>
