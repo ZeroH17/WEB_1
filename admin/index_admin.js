@@ -12,7 +12,7 @@
     });
 
    let index = 0;
-const images = document.querySelectorAll('.box img');  // ✅ đúng với HTML bạn đang dùng
+const images = document.querySelectorAll('.box img');  
 
 setInterval(() => {
   images[index].classList.remove('active');
