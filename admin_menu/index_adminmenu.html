@@ -11,22 +11,22 @@
   <!-- HEADER -->
   <header class="header">
     <div id="cartPanel" class="cart-panel">
-  <div class="cart-header">
-    <i class="fa fa-shopping-cart"></i>
-    <span>Giỏ hàng</span>
-  </div>
-</div>
+      <div class="cart-header">
+        <i class="fa fa-shopping-cart"></i>
+        <span>Giỏ hàng</span>
+      </div>
+    </div>
 
     <!-- PANEL GIỎ HÀNG -->
-<div id="cart-panel" class="cart-panel">
-  <div class="cart-header">
-    <i class="fa fa-shopping-cart"></i>
-    <span>Giỏ hàng</span>
-  </div>
-  <div class="cart-body">
-    <!-- Phần này để trống - sau sẽ hiển thị đơn hàng -->
-  </div>
-</div>
+    <div id="cart-panel" class="cart-panel">
+      <div class="cart-header">
+        <i class="fa fa-shopping-cart"></i>
+        <span>Giỏ hàng</span>
+      </div>
+      <div class="cart-body">
+        <!-- Phần này để trống - sau sẽ hiển thị đơn hàng -->
+      </div>
+    </div>
 
     <div class="logo">
       <a href="../admin/index_admin.html" class="fa fa-home"></a>
@@ -38,14 +38,28 @@
     </div>
 
     <div class="icons">
-      <i class="fa fa-filter"></i>
-      <div class="filter-box" id="filterBox">
-  <input type="number" id="priceInput" placeholder="Nhập giá (₫)">
-  <select id="filterType">
-    <option value="less">Nhỏ hơn</option>
-    <option value="greater">Lớn hơn</option>
-  </select>
-  <button id="applyFilter">Lọc</button>
+      <!-- ==== BỘ LỌC MỚI (giống giao diện menu.html) ==== -->
+<div class="filter-container">
+  <i id="filterIcon" class="fa-solid fa-filter"></i>
+
+  <div id="filterBox" class="filter-box">
+    <div class="filter-tabs">
+      <button id="btnLoai" class="active">Loại</button>
+      <button id="btnGia">Giá</button>
+    </div>
+
+    <div id="filterLoai">
+      <button class="tag">Gà giòn</button>
+      <button class="tag">Gà phô mai</button>
+      <button class="tag">Pizza</button>
+      <button class="tag">Mì ý</button>
+    </div>
+
+    <div id="filterGia" class="hidden">
+      <input type="range" id="priceRange" min="30000" max="100000" value="100000">
+      <span>Giá tối đa: <span id="maxPrice">100.000</span>₫</span>
+    </div>
+  </div>
 </div>
 
 
@@ -53,16 +67,17 @@
         <i class="fa fa-bell"></i>
         <span class="badge">1</span>
       </div>
+
       <div class="admin-profile" onclick="toggleAdminMenu()">
-  <i class="fa fa-user-circle"></i>
-  <span>Admin</span>
-  <div id="admin-menu" class="admin-menu">
-    <div class="admin-item">
-      <i class="fa fa-shopping-cart"></i>
-      <span>Giỏ hàng</span>
-    </div>
-  </div>
-</div>
+        <i class="fa fa-user-circle"></i>
+        <span>Admin</span>
+        <div id="admin-menu" class="admin-menu">
+          <div class="admin-item">
+            <i class="fa fa-shopping-cart"></i>
+            <span>Giỏ hàng</span>
+          </div>
+        </div>
+      </div>
 
       <div class="avatar"></div>
     </div>
@@ -71,478 +86,55 @@
   <!-- DANH MỤC -->
   <section class="categories">
     <button class="nav-btn left"><i class="fa fa-chevron-left"></i></button>
-
     <div class="category active" data-name="Gà giòn">Gà giòn</div>
     <div class="category" data-name="Gà phô mai">Gà phô mai</div>
     <div class="category" data-name="Pizza">Pizza</div>
-    <div class="category" data-name="Mỳ ý">Mỳ ý</div>
-
+    <div class="category" data-name="Mỳ ý">Mì ý</div>
     <button class="nav-btn right"><i class="fa fa-chevron-right"></i></button>
   </section>
-
   <!-- DANH SÁCH MÓN ĂN -->
   <main class="menu">
-  <h2>Gà giòn</h2>
-  <hr>
-  <div class="menu-grid"></div>
-</main>
+    <h2></h2>
+    
+    <hr>
+    <div class="menu-grid"></div>
+  </main>
 
-<!-- FORM THÊM MÓN -->
-<div class="modal">
-  <div class="modal-content">
-    <div class="modal-header">
-      <h3>Thêm món ăn</h3>
-      <span class="close">&times;</span>
-    </div>
-    <div class="modal-body">
-      <div id="imgPreview" class="img-preview">
-        <i class="fa fa-plus"></i>
+  <!-- FORM THÊM MÓN -->
+  <div class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Thêm món ăn</h3>
+        <span class="close">&times;</span>
       </div>
-      <label for="foodName">Tên món</label>
-      <input type="text" id="foodName" placeholder="Nhập tên món...">
-
-      <label for="foodPrice">Giá</label>
-      <input type="text" id="foodPrice" placeholder="Nhập giá...">
-
-      <button id="saveBtn" class="save-btn">Lưu</button>
+      <div class="modal-body">
+        <div id="imgPreview" class="img-preview">
+          <i class="fa fa-plus"></i>
+        </div>
+        <label for="foodName">Tên món</label>
+        <input type="text" id="foodName" placeholder="Nhập tên món...">
+        <label for="foodPrice">Giá</label>
+        <input type="text" id="foodPrice" placeholder="Nhập giá...">
+        <button id="saveBtn" class="save-btn">Lưu</button>
+      </div>
     </div>
   </div>
+
+  <script src="menu-admin.js"></script>
+  <!-- ================= GIỎ HÀNG ================= -->
+<div class="cart-overlay"></div>
+<div class="cart-panel">
+  <div class="cart-header">
+    <h2>Giỏ Hàng</h2>
+    <button class="close-cart">×</button>
+  </div>
+  <div class="cart-content">
+    <p>Chưa có sản phẩm nào trong giỏ hàng</p>
+  </div>
+  <div class="cart-footer">
+    <button class="checkout-btn">Thanh toán</button>
+  </div>
 </div>
-
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-  const defaultData = {
-  "Gà giòn": [
-    {
-      name: "Gà Rán Truyền Thống",
-      price: "45.000",
-      img: "ga1.png"
-    },
-    {
-      name: "Gà Rán Cay",
-      price: "48.000",
-      img: "ga2.png"
-    },
-    {
-      name: "Gà Rán Giòn",
-      price: "47.000",
-      img: "ga3.png"
-    }
-  ],
-  "Gà phô mai": [
-    {
-      name:"Gà Phô Mai Tan Chảy",
-      price:"55.000",
-      img:"ga9.png"
-    },
-    {
-      name:"Gà Phô Mai BBQ",
-      price:"56.000",
-      img:"ga11.png"
-    },
-    {
-      name:"Gà Phô Mai Cay",
-      price:"57.000",
-      img:"ga7.png"
-    }
-  ],
-  "Pizza": [
-    {
-      name:"Pizza Hải Sản",
-      price:"89.000",
-      img:"hs.png"
-    },
-    {
-      name:"Pizza Bò Phô Mai",
-      price:"95.000",
-      img:"bpm.png"
-    },
-    {
-      name:"Pizza Gà Nướng",
-      price:"92.000",
-      img:"gn.png"
-    }
-    
-
-  ],
-  "Mỳ ý": [
-    {
-      name:"Mỳ Ý Sốt Bò Bằm",
-      price:"70.000",
-      img:"mi-y-sot-bo-bam-thumb_033c1c63fa4f4f1c89c6440b9326da21.png"
-    },
-    {
-      name:"Mỳ Ý Sốt Kem Nấm",
-      price:"72.000",
-      img:"kemnam.png"
-    },
-    {
-      name:"Mỳ Ý Sốt Hải Sản",
-      price:"75.000",
-      img:"myhs.png"
-    }
-  ]
-};
-
-
-
-  let foodData = JSON.parse(localStorage.getItem("foodData")) || defaultData;
-
-  const grid = document.querySelector(".menu-grid");
-  const categories = document.querySelectorAll(".category");
-  const menuTitle = document.querySelector(".menu h2");
-  const modal = document.querySelector(".modal");
-  const closeModal = document.querySelector(".close");
-  const saveBtn = document.getElementById("saveBtn");
-  const imgPreview = document.getElementById("imgPreview");
-
-  let currentCategory = "Gà giòn";
-  let selectedImg = "";
-
-  // ====== VẼ DANH SÁCH MÓN ======
-  function renderMenu(category) {
-    grid.innerHTML = "";
-    const list = foodData[category] || [];
-
-    if (list.length === 0) {
-      for (let i = 0; i < 3; i++) {
-        const empty = document.createElement("div");
-        empty.className = "item";
-        empty.innerHTML = `
-          <div class="menu-card">
-            <div class="menu-img"></div>
-            <div class="menu-content">
-              <h3 class="menu-title"></h3>
-              <hr class="menu-line">
-              <div class="menu-bottom">
-                <span class="menu-price"></span>
-                <button class="cart-btn"><i class="fa fa-shopping-cart"></i></button>
-              </div>
-            </div>
-          </div>`;
-        grid.appendChild(empty);
-      }
-    } else {
-      list.forEach((item, index) => {
-        const div = document.createElement("div");
-        div.className = "item";
-        div.innerHTML = `
-          <div class="menu-card">
-            <div class="menu-img">
-              <img src="${item.img}" alt="${item.name}">
-              <button class="delete-btn" data-index="${index}">✖</button>
-            </div>
-            <div class="menu-content">
-              <h3 class="menu-title">${item.name}</h3>
-              <hr class="menu-line">
-              <div class="menu-bottom">
-                <span class="menu-price">${item.price}₫</span>
-                <button class="cart-btn"><i class="fa fa-shopping-cart"></i></button>
-              </div>
-            </div>
-          </div>`;
-        grid.appendChild(div);
-      });
-    }
-
-    const addDiv = document.createElement("div");
-    addDiv.className = "item add";
-    addDiv.innerHTML = `<i class="fa fa-plus"></i>`;
-    addDiv.addEventListener("click", () => modal.style.display = "flex");
-    grid.appendChild(addDiv);
-
-    const deleteBtns = document.querySelectorAll(".delete-btn");
-    deleteBtns.forEach(btn => {
-      btn.addEventListener("click", (e) => {
-        const index = e.target.dataset.index;
-        if (confirm("Bạn có muốn xóa món này không?")) {
-          foodData[category].splice(index, 1);
-          localStorage.setItem("foodData", JSON.stringify(foodData));
-          renderMenu(category);
-        }
-      });
-    });
-  }
-
-  // ====== CHỌN ẢNH ======
-  imgPreview.addEventListener("click", () => {
-    const input = document.createElement("input");
-    input.type = "file";
-    input.accept = "image/*";
-    input.onchange = e => {
-      const file = e.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = ev => {
-          selectedImg = ev.target.result;
-          imgPreview.innerHTML = `<img src="${selectedImg}" alt="preview">`;
-        };
-        reader.readAsDataURL(file);
-      }
-    };
-    input.click();
-  });
-
-  // ====== LƯU MÓN ======
-  saveBtn.addEventListener("click", () => {
-    const name = document.getElementById("foodName").value.trim();
-    const price = document.getElementById("foodPrice").value.trim();
-    if (!name || !price || !selectedImg) {
-      alert("Vui lòng nhập đủ thông tin và chọn ảnh!");
-      return;
-    }
-
-    foodData[currentCategory].push({ name, price, img: selectedImg });
-    localStorage.setItem("foodData", JSON.stringify(foodData));
-
-    modal.style.display = "none";
-    document.getElementById("foodName").value = "";
-    document.getElementById("foodPrice").value = "";
-    imgPreview.innerHTML = `<i class="fa fa-plus"></i>`;
-    selectedImg = "";
-    renderMenu(currentCategory);
-  });
-
-  // ====== ĐÓNG MODAL ======
-  closeModal.addEventListener("click", () => modal.style.display = "none");
-
-  // ====== CHUYỂN DANH MỤC ======
-  categories.forEach(cat => {
-    cat.addEventListener("click", () => {
-      categories.forEach(c => c.classList.remove("active"));
-      cat.classList.add("active");
-      currentCategory = cat.dataset.name;
-      menuTitle.textContent = currentCategory;
-      renderMenu(currentCategory);
-    });
-  });
-
-  // ====== XỬ LÝ NÚT MŨI TÊN ======
-  const leftBtn = document.querySelector(".nav-btn.left");
-  const rightBtn = document.querySelector(".nav-btn.right");
-
-  function changeCategory(direction) {
-    const categoryArray = Array.from(categories);
-    let currentIndex = categoryArray.findIndex(c => c.classList.contains("active"));
-
-    if (direction === "next") {
-      currentIndex = (currentIndex + 1) % categoryArray.length;
-    } else if (direction === "prev") {
-      currentIndex = (currentIndex - 1 + categoryArray.length) % categoryArray.length;
-    }
-
-    categoryArray.forEach(c => c.classList.remove("active"));
-    categoryArray[currentIndex].classList.add("active");
-
-    const newCategory = categoryArray[currentIndex].dataset.name;
-    currentCategory = newCategory;
-    menuTitle.textContent = newCategory;
-    renderMenu(newCategory);
-  }
-
-  leftBtn.addEventListener("click", () => changeCategory("prev"));
-  rightBtn.addEventListener("click", () => changeCategory("next"));
-  // --- TÌM KIẾM & LỌC GIÁ KẾT HỢP ---
-const searchInput = document.querySelector('.search-bar input');
-const filterIcon = document.querySelector('.fa-filter');
-const filterBox = document.getElementById('filterBox');
-const applyFilter = document.getElementById('applyFilter');
-const priceInput = document.getElementById('priceInput');
-const filterType = document.getElementById('filterType');
-let filterCondition = null; // Điều kiện lọc hiện tại (nếu có)
-
-// Hiện / ẩn hộp lọc
-filterIcon.addEventListener('click', (e) => {
-  e.stopPropagation();
-  filterBox.style.display = filterBox.style.display === 'block' ? 'none' : 'block';
-});
-
-// Ẩn hộp lọc khi click ra ngoài
-document.addEventListener('click', (e) => {
-  if (!filterBox.contains(e.target) && !filterIcon.contains(e.target)) {
-    filterBox.style.display = 'none';
-  }
-});
-
-// Hàm hiển thị kết quả theo tìm kiếm & lọc
-function renderFilteredResults() {
-  const keyword = searchInput.value.toLowerCase().trim();
-  const grid = document.querySelector('.menu-grid');
-  const menuTitle = document.querySelector('.menu h2');
-  const categoriesList = document.querySelectorAll('.category');
-
-  // Không đổi màu danh mục (chỉ giữ nguyên danh mục đang xem)
-  categoriesList.forEach(cat => cat.classList.remove('active'));
-
-  // Nếu không tìm kiếm và không lọc -> trả lại danh mục hiện tại
-  if (!keyword && !filterCondition) {
-    menuTitle.textContent = currentCategory;
-    renderMenu(currentCategory);
-    return;
-  }
-
-  const allMatches = [];
-  for (const cat in foodData) {
-    foodData[cat].forEach(item => {
-      const nameMatch = !keyword || item.name.toLowerCase().includes(keyword);
-      const itemPrice = parseFloat(item.price.toString().replace(/\./g, '').replace('₫', ''));
-      let priceMatch = true;
-      if (filterCondition) {
-        if (filterCondition.type === 'less') priceMatch = itemPrice < filterCondition.price;
-        else if (filterCondition.type === 'greater') priceMatch = itemPrice > filterCondition.price;
-      }
-      if (nameMatch && priceMatch) allMatches.push(item);
-    });
-  }
-
-  grid.innerHTML = '';
-  menuTitle.textContent =
-    keyword && filterCondition
-      ? `Kết quả cho "${keyword}" (đã lọc giá)`
-      : keyword
-      ? `Kết quả tìm kiếm cho: "${keyword}"`
-      : `Kết quả lọc giá`;
-
-  if (allMatches.length === 0) {
-    grid.innerHTML = `<p style="grid-column: 1 / -1; text-align:center;">Không có món nào phù hợp.</p>`;
-  } else {
-    allMatches.forEach(item => {
-      const div = document.createElement('div');
-      div.className = 'item';
-      div.innerHTML = `
-        <div class="menu-card">
-          <div class="menu-img"><img src="${item.img}" alt="${item.name}"></div>
-          <div class="menu-content">
-            <h3 class="menu-title">${item.name}</h3>
-            <hr class="menu-line">
-            <div class="menu-bottom">
-              <span class="menu-price">${item.price}₫</span>
-              <button class="cart-btn"><i class="fa fa-shopping-cart"></i></button>
-            </div>
-          </div>
-        </div>`;
-      grid.appendChild(div);
-    });
-  }
-}
-
-// Sự kiện tìm kiếm
-searchInput.addEventListener('input', () => {
-  renderFilteredResults();
-});
-
-// Sự kiện lọc
-applyFilter.addEventListener('click', () => {
-  const price = parseFloat(priceInput.value);
-  if (isNaN(price)) return alert('⚠️ Vui lòng nhập giá hợp lệ!');
-  const type = filterType.value;
-  filterCondition = { type, price };
-  filterBox.style.display = 'none';
-  renderFilteredResults();
-});
-
-// Nhấn ESC để xóa tìm kiếm & lọc
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') {
-    searchInput.value = '';
-    filterCondition = null;
-    renderMenu(currentCategory);
-  }
-});
-
-
-// Áp dụng lọc giá
-applyFilter.addEventListener('click', () => {
-  const price = parseFloat(priceInput.value);
-  if (isNaN(price)) return alert("⚠️ Vui lòng nhập giá tiền hợp lệ!");
-
-  const type = filterType.value;
-  const grid = document.querySelector('.menu-grid');
-  const menuTitle = document.querySelector('.menu h2');
-
-  // Lọc toàn bộ món ăn trong foodData
-  const allMatches = [];
-  for (const cat in foodData) {
-    foodData[cat].forEach(item => {
-      const itemPrice = parseFloat(item.price.toString().replace(/\./g, '').replace('₫', ''));
-      if ((type === 'less' && itemPrice < price) ||
-          (type === 'greater' && itemPrice > price)) {
-        allMatches.push(item);
-      }
-    });
-  }
-
-  // Hiển thị kết quả lọc
-  grid.innerHTML = '';
-  menuTitle.textContent = `Kết quả lọc theo giá ${type === 'less' ? 'nhỏ hơn' : 'lớn hơn'} ${price.toLocaleString()}₫`;
-
-  if (allMatches.length === 0) {
-    grid.innerHTML = '<p style="grid-column: 1 / -1; text-align:center;">Không có món nào phù hợp.</p>';
-  } else {
-    allMatches.forEach(item => {
-      const div = document.createElement('div');
-      div.className = 'item';
-      div.innerHTML = `
-        <div class="menu-card">
-          <div class="menu-img"><img src="${item.img}" alt="${item.name}"></div>
-          <div class="menu-content">
-            <h3 class="menu-title">${item.name}</h3>
-            <hr class="menu-line">
-            <div class="menu-bottom">
-              <span class="menu-price">${item.price}₫</span>
-              <button class="cart-btn"><i class="fa fa-shopping-cart"></i></button>
-            </div>
-          </div>
-        </div>`;
-      grid.appendChild(div);
-    });
-  }
-
-  filterBox.style.display = 'none';
-});
-
-
-  // ====== KHỞI TẠO ======
-  renderMenu(currentCategory);
-});
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
-
-</script>
-<script>
-const admin = document.querySelector('.admin-profile');
-const cartPanel = document.getElementById('cartPanel');
-
-// khi click vào Admin -> bật/tắt giỏ hàng
-admin.addEventListener('click', (e) => {
-  e.stopPropagation();
-  cartPanel.classList.toggle('active');
-});
-
-// click ra ngoài -> ẩn giỏ hàng
-document.addEventListener('click', (e) => {
-  if (!cartPanel.contains(e.target) && !admin.contains(e.target)) {
-    cartPanel.classList.remove('active');
-  }
-});
-// 
-</script>
-
-
-
-
 
 </body>
 </html>
