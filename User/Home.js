@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Khi click vào avatar
     userAvatar.addEventListener("click", function () {
         // Chuyển sang trang thông tin người dùng
-        window.location.href = "/info-user/info-user.html";
+        window.location.href = "Info-user/info-user.html";
         });
   }
 });

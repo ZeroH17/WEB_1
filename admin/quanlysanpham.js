@@ -6,29 +6,34 @@
       renderTon(products);
     }
 
-    function renderTon(data) {
-      const tbody = document.querySelector("#tableTon tbody");
-      tbody.innerHTML = "";
-      const grouped = {};
+   function renderTon(data) {
+  const tbody = document.querySelector("#tableTon tbody");
+  tbody.innerHTML = "";
+  const grouped = {};
 
-      data.forEach(p => {
-        if (!grouped[p.ten]) grouped[p.ten] = { ...p, xuat: 0 };
-        grouped[p.ten].xuat += p.xuat;
-      });
+  data.forEach(p => {
+    if (!grouped[p.ten]) grouped[p.ten] = { ten: p.ten, loai: p.loai, gia: p.gia, nhap: 0, xuat: 0 };
+    grouped[p.ten].nhap += p.nhap;
+    grouped[p.ten].xuat += p.xuat;
+  });
 
-      Object.values(grouped).forEach(p => {
-        const ton = p.nhap - p.xuat;
-        const trangthai = ton <= 2 ? `<span class='alert'>Sắp hết</span>` : `<span class='alert ok'>Đủ hàng</span>`;
-        tbody.innerHTML += `
-          <tr>
-            <td>${p.ten}</td>
-            <td>${p.loai}</td>
-            <td>${p.gia.toLocaleString()}đ</td>
-            <td>${ton}</td>
-            <td>${trangthai}</td>
-          </tr>`;
-      });
-    }
+  Object.values(grouped).forEach(p => {
+    const ton = Math.max(0, p.nhap - p.xuat); 
+    const trangthai = ton <= 10 
+      ? `<span class='alert'>Sắp hết</span>` 
+      : `<span class='alert ok'>Đủ hàng</span>`;
+
+    tbody.innerHTML += `
+      <tr>
+        <td>${p.ten}</td>
+        <td>${p.loai}</td>
+        <td>${p.gia.toLocaleString()}đ</td>
+        <td>${ton}</td>
+        <td>${trangthai}</td>
+      </tr>`;
+  });
+}
+
 
     function filterByDate() {
       const date = document.getElementById("specificDate").value;
