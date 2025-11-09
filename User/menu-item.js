@@ -279,64 +279,28 @@ addToCart.addEventListener("click", () => {
   const price = basePrice;
   const total = qty * price;
 
-  const cartItems = document.getElementById("cartItems");
-  if (!cartItems) {
-    console.error("Không tìm thấy phần hiển thị giỏ hàng (#cartItems).");
-    return;
-  }
-  const existingItem = [...cartItems.children].find(item =>
-    item.querySelector(".cart-item-name").textContent === selectedProduct.name
-  );
+  let cart = JSON.parse(localStorage.getItem("cartItems")) || [];
 
-  if (existingItem) {
-    const qtyElem = existingItem.querySelector(".cart-item-qty");
-    const totalElem = existingItem.querySelector(".cart-item-total");
-    let currentQty = parseInt(qtyElem.textContent, 10);
-    currentQty += qty;
-    qtyElem.textContent = currentQty;
-    totalElem.textContent = (currentQty * price).toLocaleString() + "₫";
+  const existing = cart.find(item => item.name === selectedProduct.name);
+  if (existing) {
+    existing.qty += qty;
+    existing.total = existing.qty * price;
   } else {
-    const div = document.createElement("div");
-    div.classList.add("cart-item");
-    div.innerHTML = `
-      <span class="cart-item-name">${selectedProduct.name}</span>
-      <div class="cart-item-controls">
-        <button class="cart-minus">−</button>
-        <span class="cart-item-qty">${qty}</span>
-        <button class="cart-plus">+</button>
-      </div>
-      <span class="cart-item-total">${total.toLocaleString()}₫</span>
-    `;
-    cartItems.appendChild(div);
-    const plusBtn = div.querySelector(".cart-plus");
-    const minusBtn = div.querySelector(".cart-minus");
-    const qtyElem = div.querySelector(".cart-item-qty");
-    const totalElem = div.querySelector(".cart-item-total");
-
-    plusBtn.addEventListener("click", () => {
-      let currentQty = parseInt(qtyElem.textContent, 10);
-      currentQty++;
-      qtyElem.textContent = currentQty;
-      totalElem.textContent = (currentQty * price).toLocaleString() + "₫";
-      updateCartTotal();
-    });
-
-    minusBtn.addEventListener("click", () => {
-      let currentQty = parseInt(qtyElem.textContent, 10);
-      if (currentQty > 1) {
-        currentQty--;
-        qtyElem.textContent = currentQty;
-        totalElem.textContent = (currentQty * price).toLocaleString() + "₫";
-      } else {
-        div.remove(); 
-      }
-      updateCartTotal();
+    cart.push({
+      name: selectedProduct.name,
+      price: price,
+      qty: qty,
+      total: total,
+      img: selectedProduct.img
     });
   }
 
-  updateCartTotal();
+  // Lưu vào localStorage
+  localStorage.setItem("cartItems", JSON.stringify(cart));
+
+  // Cập nhật hiển thị trên giao diện
+  renderCartUI();
   modal.style.display = "none";
-  document.getElementById("cartContent").classList.remove("hidden");
 });
 function updateCartTotal() {
   const totals = [...document.querySelectorAll(".cart-item-total")].map(el =>
@@ -392,3 +356,34 @@ document.querySelector(".floating-cart").addEventListener("click", () => {
   alert("Tính năng giỏ hàng sẽ hiển thị ở đây!"); 
 });
 
+function renderCartUI() {
+  const cartItemsContainer = document.getElementById("cartItems");
+  if (!cartItemsContainer) return;
+
+  const cart = JSON.parse(localStorage.getItem("cartItems")) || [];
+  cartItemsContainer.innerHTML = "";
+
+  if (cart.length === 0) {
+    document.getElementById("cartTotalPrice").textContent = "0₫";
+    return;
+  }
+
+  cart.forEach(item => {
+    const div = document.createElement("div");
+    div.classList.add("cart-item");
+    div.innerHTML = `
+      <span class="cart-item-name">${item.name}</span>
+      <div class="cart-item-controls">
+        <button class="cart-minus">−</button>
+        <span class="cart-item-qty">${item.qty}</span>
+        <button class="cart-plus">+</button>
+      </div>
+      <span class="cart-item-total">${item.total.toLocaleString()}₫</span>
+    `;
+    cartItemsContainer.appendChild(div);
+  });
+
+  const total = cart.reduce((sum, item) => sum + item.total, 0);
+  document.getElementById("cartTotalPrice").textContent = total.toLocaleString() + "₫";
+}
+document.addEventListener("DOMContentLoaded", renderCartUI);

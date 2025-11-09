@@ -16,47 +16,20 @@ function confirmPayment() {
 
   const qrPopup = document.getElementById("qr-popup");
   const qrImage = document.getElementById("qr-image");
-  const cashPopup = document.getElementById("cash-popup");
-
-  const total = localStorage.getItem("cartTotal") || 0;
-  document.getElementById("cash-total").textContent = parseInt(total).toLocaleString("vi-VN") + "₫";
 
   if (selected.id === "momo") {
-    qrImage.src = "https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=MoMo-QR-ThanhToan";
+    qrImage.src =
+      "https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=MoMo-QR-ThanhToan";
     qrPopup.style.display = "flex";
-  } 
-  else if (selected.id === "vnpay") {
-    qrImage.src = "https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=VNPAY-QR-ThanhToan";
+  } else if (selected.id === "vnpay") {
+    qrImage.src =
+      "https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=VNPAY-QR-ThanhToan";
     qrPopup.style.display = "flex";
-  } 
-  else if (selected.id === "cash") {
-    cashPopup.style.display = "flex"; // ✅ Hiện popup tiền mặt
+  } else if (selected.id === "cash") {
+    alert("Thanh toán tiền mặt thành công!");
+    processPaymentSuccess();
   }
 }
-function closeCashPopup() {
-  document.getElementById("cash-popup").style.display = "none";
-}
-
-function confirmCashPayment() {
-  const total = parseInt(localStorage.getItem("cartTotal") || 0);
-  const customerCash = parseInt(document.getElementById("customerCash").value);
-
-  if (isNaN(customerCash) || customerCash < total) {
-    alert("Số tiền khách đưa không hợp lệ!");
-    return;
-  }
-
-  const change = customerCash - total;
-  document.getElementById("cash-change").textContent = change.toLocaleString("vi-VN") + "₫";
-
-  // Hiện thông báo sau 1s
-  setTimeout(() => {
-    alert("Thanh toán thành công!");
-    document.getElementById("cash-popup").style.display = "none";
-    window.location.href = "menu.html"; // quay lại menu
-  }, 1000);
-}
-
 
 function closeQR() {
   document.getElementById("qr-popup").style.display = "none";
@@ -64,73 +37,84 @@ function closeQR() {
 
 function confirmReceived() {
   document.getElementById("qr-popup").style.display = "none";
-  showSuccessAndReturn();
+  processPaymentSuccess();
 }
 
-function confirmCashPayment() {
-  const total = parseInt(localStorage.getItem("cartTotal") || 0);
-  const customerCash = parseInt(document.getElementById("customerCash").value);
-
-  if (isNaN(customerCash) || customerCash < total) {
-    alert("Số tiền khách đưa không hợp lệ!");
+/* Xử lý sau khi thanh toán thành công */
+function processPaymentSuccess() {
+  // Lấy dữ liệu giỏ hàng
+  const cart = JSON.parse(localStorage.getItem("cartItems")) || [];
+  if (cart.length === 0) {
+    alert("Không có sản phẩm trong giỏ hàng để thanh toán.");
     return;
   }
 
-  const change = customerCash - total;
-  document.getElementById("changeAmount").textContent = change.toLocaleString("vi-VN") + "₫";
+  // Tính lại tổng tiền từ giỏ hàng (đảm bảo không bị 0)
+  const total = cart.reduce((sum, item) => {
+    const itemTotal = item.total || (item.price * item.qty) || 0;
+    return sum + itemTotal;
+  }, 0);
 
-  setTimeout(() => {
-    showSuccessAndReturn();
-  }, 1500);
-}
+  // Tạo mã đơn hàng ngẫu nhiên
+  const orderId = "DH" + Date.now();
 
-function showSuccessAndReturn() {
+  // Tạo đối tượng đơn hàng mới
+  const newOrder = {
+    id: orderId,
+    items: cart,
+    total: total,
+    status: "Chờ xác nhận",
+    date: new Date().toLocaleString("vi-VN"),
+  };
+
+  // Lấy danh sách đơn hàng cũ (nếu có)
+  const history = JSON.parse(localStorage.getItem("orderHistory")) || [];
+
+  // Thêm đơn mới vào đầu danh sách (đơn mới nhất ở trên)
+  history.unshift(newOrder);
+
+  // Lưu lại vào localStorage
+  localStorage.setItem("orderHistory", JSON.stringify(history));
+
+  // Xóa giỏ hàng sau khi lưu đơn
+  localStorage.removeItem("cartItems");
+  localStorage.removeItem("cartTotal");
+
+  // Hiện popup thông báo thành công
   const successPopup = document.getElementById("success-popup");
-  successPopup.style.display = "flex";
+  if (successPopup) {
+    successPopup.style.display = "flex";
+  }
 
+  // Chuyển hướng sau 2 giây
   setTimeout(() => {
-    successPopup.style.display = "none";
-    window.location.href = "menu.html";
+    if (successPopup) successPopup.style.display = "none";
+    alert("Thanh toán thành công! Đơn hàng của bạn đã được lưu vào lịch sử.");
+    window.location.href = "info-user/history-user.html";
   }, 2000);
 }
+
+
+// Lưu tổng tiền khi vào trang thanh toán
 document.addEventListener("DOMContentLoaded", () => {
   const total = localStorage.getItem("cartTotal");
   if (total) {
-    // Hiển thị số tiền phải trả ở popup tiền mặt
     const totalText = parseInt(total).toLocaleString("vi-VN") + "₫";
-    const totalLabels = document.querySelectorAll("#cash-total, #displayTotal"); 
-    totalLabels.forEach(el => (el.textContent = totalText));
+    const totalLabels = document.querySelectorAll("#cash-total, #displayTotal");
+    totalLabels.forEach((el) => (el.textContent = totalText));
   }
 });
-// =======================
-// CẬP NHẬT TIỀN THỐI LẠI TỰ ĐỘNG
-// =======================
+
+// Khi người dùng nhấn "Thanh toán" ở giỏ hàng
 document.addEventListener("DOMContentLoaded", () => {
-  const inputMoney = document.getElementById("customerCash"); // ✅ trùng với HTML
-  const changeLabel = document.getElementById("cash-change");
-  const totalText = document.getElementById("cash-total");
-
-  if (!inputMoney || !changeLabel || !totalText) return;
-
-  inputMoney.addEventListener("input", () => {
-    const total = parseInt(localStorage.getItem("cartTotal")) || 0;
-    const customerPay = parseInt(inputMoney.value) || 0;
-    let change = customerPay - total;
-    if (change < 0) change = 0;
-    changeLabel.textContent = change.toLocaleString("vi-VN") + "₫";
-  });
-});
-
-
-document.addEventListener("DOMContentLoaded", () => {
-  
   const checkoutBtn = document.getElementById("checkoutBtn");
   if (checkoutBtn) {
     checkoutBtn.addEventListener("click", () => {
-      const total = document.getElementById("cartTotalPrice").textContent.replace(/[^\d]/g, "");
-      localStorage.setItem("cartTotal", total); 
-      window.location.href = "payment.html"; 
+      const total = document
+        .getElementById("cartTotalPrice")
+        .textContent.replace(/[^\d]/g, "");
+      localStorage.setItem("cartTotal", total);
+      window.location.href = "payment.html";
     });
   }
 });
-
