@@ -45,6 +45,50 @@
     <script src="Logout.js"></script>
     <script src="ChangeBackground.js"></script>
     <script src="OrderActions.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+    const container = document.getElementById("Content-right");
+    const history = JSON.parse(localStorage.getItem("orderHistory")) || [];
+
+    if (history.length === 0) {
+        container.innerHTML = "<p style='color:white;text-align:center;'>Chưa có đơn hàng nào.</p>";
+        return;
+    }
+
+    container.innerHTML = history.map(order => {
+        // ✅ Nếu total = 0, tính lại từ items
+        let total = order.total;
+        if (!total || total === 0) {
+        total = order.items.reduce((sum, item) => sum + (item.total || 0), 0);
+        }
+
+        return `
+        <div class="box-history">
+            <div class="order-info">
+            <p><strong>ID đơn hàng:</strong> ${order.id}</p>
+            <p><strong>Ngày:</strong> ${order.date}</p>
+            <p><strong>Tổng tiền:</strong> ${Number(total).toLocaleString("vi-VN")}₫</p>
+            <p><strong>Trạng thái:</strong> ${order.status}</p>
+            </div>
+            <div class="order-actions">
+            <button class="cancel-btn">Hủy đơn hàng</button>
+            <div class="rating-container">
+                <label>Đánh giá:</label>
+                <div class="rating">
+                <img src="/image/Star 22.svg" alt="star">
+                <img src="/image/Star 22.svg" alt="star">
+                <img src="/image/Star 22.svg" alt="star">
+                <img src="/image/Star 22.svg" alt="star">
+                <img src="/image/Star 22.svg" alt="star">
+                </div>
+            </div>
+            </div>
+        </div>
+        `;
+    }).join("");
+    });
+
+    </script>
 
 </body>
 </html>

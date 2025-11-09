@@ -93,11 +93,20 @@ body {
 .box-history {
     border-radius: 50px;
     border: none;
-    width: 800px;
+    width: 850px;
     height: 200px;
     background-color: rgba(0, 0, 0, 0.47);
-
+    margin-bottom: 30px;
 }
+
+.order-info {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 40px;
+  margin-bottom: 20px;
+}
+
 .order-info p {
     display: inline-block;
     width: 170px;
@@ -105,8 +114,8 @@ body {
     border-radius: 30px;
     align-items: center;
     margin-top: 30px;
-    margin-left: 20px;
-    padding-top: 15px;
+    margin-left: 5px;
+    padding-top: 10px;
     padding-left: 15px;
     background-color: #D9D9D9;
 }
