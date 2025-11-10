@@ -279,7 +279,10 @@ addToCart.addEventListener("click", () => {
   const price = basePrice;
   const total = qty * price;
 
-  let cart = JSON.parse(localStorage.getItem("cartItems")) || [];
+  const currentUser = JSON.parse(localStorage.getItem("currentUser") || "{}");
+  const cartKey = currentUser.username ? `cartItems_${currentUser.username}` : "cartItems";
+
+  let cart = JSON.parse(localStorage.getItem(cartKey)) || [];
 
   const existing = cart.find(item => item.name === selectedProduct.name);
   if (existing) {
@@ -288,20 +291,20 @@ addToCart.addEventListener("click", () => {
   } else {
     cart.push({
       name: selectedProduct.name,
-      price: price,
-      qty: qty,
-      total: total,
+      price,
+      qty,
+      total,
       img: selectedProduct.img
     });
   }
 
-  // Lưu vào localStorage
-  localStorage.setItem("cartItems", JSON.stringify(cart));
+  // Lưu giỏ hàng riêng cho user
+  localStorage.setItem(cartKey, JSON.stringify(cart));
 
-  // Cập nhật hiển thị trên giao diện
   renderCartUI();
   modal.style.display = "none";
 });
+
 function updateCartTotal() {
   const totals = [...document.querySelectorAll(".cart-item-total")].map(el =>
     parseInt(el.textContent.replace(/[^\d]/g, ""))
@@ -360,7 +363,10 @@ function renderCartUI() {
   const cartItemsContainer = document.getElementById("cartItems");
   if (!cartItemsContainer) return;
 
-  const cart = JSON.parse(localStorage.getItem("cartItems")) || [];
+  const currentUser = JSON.parse(localStorage.getItem("currentUser") || "{}");
+  const cartKey = currentUser.username ? `cartItems_${currentUser.username}` : "cartItems";
+  const cart = JSON.parse(localStorage.getItem(cartKey)) || [];
+
   cartItemsContainer.innerHTML = "";
 
   if (cart.length === 0) {

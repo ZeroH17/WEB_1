@@ -12,23 +12,30 @@ document.getElementById("loginBtn").addEventListener("click", function() {
     const users = JSON.parse(localStorage.getItem("users")) || [];
 
     // Tìm người dùng có username hoặc email trùng và password khớp
-    const user = users.find(u => 
+    const foundUser = users.find(u => 
         (u.username === usernameOrEmail || u.email === usernameOrEmail) 
         && u.password === password
     );
 
-    if (!user) {
+    if (!foundUser) {
         alert("Tên đăng nhập hoặc mật khẩu không đúng!");
         return;
     }
 
-    // Đảm bảo có role (một số user cũ có thể chưa có trường này)
-    user.role = user.role || "user";
+    // Tạo bản sao người dùng (độc lập, không trỏ chung với mảng users)
+    const currentUser = {
+        username: foundUser.username,
+        email: foundUser.email,
+        password: foundUser.password,
+        role: foundUser.role || "user",
+        avatar: foundUser.avatar || "",
+        cart: foundUser.cart || [],
+        history: foundUser.history || []
+    };
 
-    // Lưu người dùng đang đăng nhập
-    localStorage.setItem("currentUser", JSON.stringify(user));
+    // Lưu người dùng đang đăng nhập riêng biệt
+    localStorage.setItem("currentUser", JSON.stringify(currentUser));
 
-    alert(`Chào mừng ${user.username} đăng nhập thành công!`);
-
+    alert(`Chào mừng ${currentUser.username} đăng nhập thành công!`);
     window.location.href = "index.html";
 });
