@@ -45,18 +45,34 @@
     <script src="Logout.js"></script>
     <script src="ChangeBackground.js"></script>
     <script src="OrderActions.js"></script>
-    <script>
+
+    <script src="Logout.js"></script>
+<script src="ChangeBackground.js"></script>
+<script src="OrderActions.js"></script>
+
+<script>
 document.addEventListener("DOMContentLoaded", () => {
     const container = document.getElementById("Content-right");
-    let history = JSON.parse(localStorage.getItem("orderHistory")) || [];
 
-    // Nếu không có đơn hàng
+    // --- Lấy người dùng hiện tại ---
+    const currentUser = JSON.parse(localStorage.getItem("currentUser") || "{}");
+    if (!currentUser || !currentUser.username) {
+        alert("Không xác định được người dùng! Vui lòng đăng nhập lại.");
+        container.innerHTML = "<p style='color:white;text-align:center;'>Vui lòng đăng nhập để xem lịch sử đơn hàng.</p>";
+        return;
+    }
+
+    // --- Key riêng cho từng user ---
+    const historyKey = `orderHistory_${currentUser.username}`;
+    let history = JSON.parse(localStorage.getItem(historyKey)) || [];
+
+    // --- Không có đơn hàng ---
     if (history.length === 0) {
         container.innerHTML = "<p style='color:white;text-align:center;'>Chưa có đơn hàng nào.</p>";
         return;
     }
 
-    // ===== Hàm render lại danh sách đơn hàng =====
+    // ===== Hàm hiển thị đơn hàng =====
     function renderOrders() {
         if (history.length === 0) {
             container.innerHTML = "<p style='color:white;text-align:center;'>Chưa có đơn hàng nào.</p>";
@@ -64,9 +80,9 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         container.innerHTML = history.map((order, index) => {
-            let total = order.total || order.items?.reduce((sum, item) => sum + (item.total || 0), 0) || 0;
-            let rating = order.rating || 0;
-            let isCanceled = order.status === "Đã hủy";
+            const total = order.total || order.items?.reduce((sum, item) => sum + (item.total || 0), 0) || 0;
+            const rating = order.rating || 0;
+            const isCanceled = order.status === "Đã hủy";
 
             return `
             <div class="box-history ${isCanceled ? 'canceled' : ''}" data-index="${index}">
@@ -74,7 +90,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     <p><strong>ID đơn hàng:</strong> ${order.id}</p>
                     <p><strong>Ngày:</strong> ${order.date}</p>
                     <p><strong>Tổng tiền:</strong> ${Number(total).toLocaleString("vi-VN")}₫</p>
-                    <p><strong>Trạng thái:</strong> 
+                    <p><strong>Trạng thái:</strong>
                         <span class="status ${isCanceled ? 'status-cancel' : 'status-active'}">
                             ${order.status}
                         </span>
@@ -82,11 +98,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 </div>
 
                 <div class="order-actions">
-                    ${
-                        isCanceled
+                    ${isCanceled
                         ? `<button class="cancel-btn disabled" disabled>ĐÃ HỦY</button>`
-                        : `<button class="cancel-btn">HỦY ĐƠN HÀNG</button>`
-                    }
+                        : `<button class="cancel-btn">HỦY ĐƠN HÀNG</button>`}
+
                     <div class="rating-container">
                         <label>Đánh giá:</label>
                         <div class="rating" data-index="${index}">
@@ -117,7 +132,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 if (confirm("Bạn có chắc muốn hủy đơn hàng này không?")) {
                     history[index].status = "Đã hủy";
-                    localStorage.setItem("orderHistory", JSON.stringify(history));
+                    localStorage.setItem(historyKey, JSON.stringify(history)); // <-- key theo user
                     renderOrders();
                     alert("Đơn hàng đã được chuyển sang trạng thái 'Đã hủy'");
                 }
@@ -139,16 +154,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     // Cập nhật điểm đánh giá
                     history[orderIndex].rating = starValue;
-                    localStorage.setItem("orderHistory", JSON.stringify(history));
-
-                    // Hiển thị lại số sao
+                    localStorage.setItem(historyKey, JSON.stringify(history)); // <-- key theo user
                     updateStars(ratingDiv, starValue);
                 }
             });
         });
     }
 
-    // ===== Hàm tô sáng sao =====
+    // ===== Cập nhật hiển thị sao =====
     function updateStars(container, starValue) {
         const stars = container.querySelectorAll(".star");
         stars.forEach(star => {
@@ -160,7 +173,6 @@ document.addEventListener("DOMContentLoaded", () => {
     renderOrders();
 });
 </script>
-
 
 </body>
 </html>

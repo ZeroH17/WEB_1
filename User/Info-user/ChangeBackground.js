@@ -1,11 +1,17 @@
 document.addEventListener("DOMContentLoaded", function () {
-  // Tìm avatar (ở info-user.html: .avatar, ở trang chủ: #userAvatar)
   const avatar = document.querySelector(".avatar") || document.querySelector("#userAvatar");
-  if (!avatar) return; // nếu không có avatar thì thoát
+  if (!avatar) return;
 
-  const savedAvatar = localStorage.getItem("avatarImage");
+  // Lấy người dùng hiện tại
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  if (!currentUser || !currentUser.username) return;
 
-  // Nếu đã có ảnh avatar được lưu thì hiển thị lại
+  // Tạo key riêng cho avatar người dùng
+  const avatarKey = `avatar_${currentUser.username}`;
+
+  // Lấy avatar của user hiện tại
+  const savedAvatar = localStorage.getItem(avatarKey);
+
   if (savedAvatar) {
     avatar.style.backgroundImage = `url('${savedAvatar}')`;
     avatar.style.backgroundSize = "cover";
@@ -13,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
     avatar.style.backgroundRepeat = "no-repeat";
   }
 
-  // Chỉ cho phép đổi avatar khi đang ở trang info-user.html
+  // Chỉ cho phép đổi avatar ở trang info-user.html
   const currentPage = window.location.pathname;
   const isInfoUserPage = currentPage.includes("info-user.html");
 
@@ -24,8 +30,8 @@ document.addEventListener("DOMContentLoaded", function () {
       if (imageUrl && imageUrl.trim() !== "") {
         const url = imageUrl.trim();
 
-        // Lưu vào localStorage
-        localStorage.setItem("avatarImage", url);
+        // Lưu avatar theo tài khoản người dùng
+        localStorage.setItem(avatarKey, url);
 
         // Cập nhật ngay lập tức
         avatar.style.backgroundImage = `url('${url}')`;
