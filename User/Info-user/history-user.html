@@ -9,7 +9,7 @@
 <body>
     <div id="header">
         <div class="Home-logo">
-            <a href="/User/index.html"><img src="/image/Vector.svg" alt="Home"></a>
+            <a href="../../User/index.html"><img src="../../image/Vector.svg" alt="Home"></a>
         </div>
     </div>
     <div id="Content-left">
@@ -31,11 +31,11 @@
                 <div class="rating-container">
                     <label>Đánh giá:</label>
                     <div class="rating">
-                        <img src="/image/Star 22.svg" alt="star">
-                        <img src="/image/Star 22.svg" alt="star">
-                        <img src="/image/Star 22.svg" alt="star">
-                        <img src="/image/Star 22.svg" alt="star">
-                        <img src="/image/Star 22.svg" alt="star">
+                        <img src="../../image/Star 22.svg" alt="star">
+                        <img src="../../image/Star 22.svg" alt="star">
+                        <img src="../../image/Star 22.svg" alt="star">
+                        <img src="../../image/Star 22.svg" alt="star">
+                        <img src="../../image/Star 22.svg" alt="star">
                     </div>
                 </div>
             </div>
@@ -46,49 +46,121 @@
     <script src="ChangeBackground.js"></script>
     <script src="OrderActions.js"></script>
     <script>
-        document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", () => {
     const container = document.getElementById("Content-right");
-    const history = JSON.parse(localStorage.getItem("orderHistory")) || [];
+    let history = JSON.parse(localStorage.getItem("orderHistory")) || [];
 
+    // Nếu không có đơn hàng
     if (history.length === 0) {
         container.innerHTML = "<p style='color:white;text-align:center;'>Chưa có đơn hàng nào.</p>";
         return;
     }
 
-    container.innerHTML = history.map(order => {
-        // ✅ Nếu total = 0, tính lại từ items
-        let total = order.total;
-        if (!total || total === 0) {
-        total = order.items.reduce((sum, item) => sum + (item.total || 0), 0);
+    // ===== Hàm render lại danh sách đơn hàng =====
+    function renderOrders() {
+        if (history.length === 0) {
+            container.innerHTML = "<p style='color:white;text-align:center;'>Chưa có đơn hàng nào.</p>";
+            return;
         }
 
-        return `
-        <div class="box-history">
-            <div class="order-info">
-            <p><strong>ID đơn hàng:</strong> ${order.id}</p>
-            <p><strong>Ngày:</strong> ${order.date}</p>
-            <p><strong>Tổng tiền:</strong> ${Number(total).toLocaleString("vi-VN")}₫</p>
-            <p><strong>Trạng thái:</strong> ${order.status}</p>
-            </div>
-            <div class="order-actions">
-            <button class="cancel-btn">Hủy đơn hàng</button>
-            <div class="rating-container">
-                <label>Đánh giá:</label>
-                <div class="rating">
-                <img src="/image/Star 22.svg" alt="star">
-                <img src="/image/Star 22.svg" alt="star">
-                <img src="/image/Star 22.svg" alt="star">
-                <img src="/image/Star 22.svg" alt="star">
-                <img src="/image/Star 22.svg" alt="star">
-                </div>
-            </div>
-            </div>
-        </div>
-        `;
-    }).join("");
-    });
+        container.innerHTML = history.map((order, index) => {
+            let total = order.total || order.items?.reduce((sum, item) => sum + (item.total || 0), 0) || 0;
+            let rating = order.rating || 0;
+            let isCanceled = order.status === "Đã hủy";
 
-    </script>
+            return `
+            <div class="box-history ${isCanceled ? 'canceled' : ''}" data-index="${index}">
+                <div class="order-info">
+                    <p><strong>ID đơn hàng:</strong> ${order.id}</p>
+                    <p><strong>Ngày:</strong> ${order.date}</p>
+                    <p><strong>Tổng tiền:</strong> ${Number(total).toLocaleString("vi-VN")}₫</p>
+                    <p><strong>Trạng thái:</strong> 
+                        <span class="status ${isCanceled ? 'status-cancel' : 'status-active'}">
+                            ${order.status}
+                        </span>
+                    </p>
+                </div>
+
+                <div class="order-actions">
+                    ${
+                        isCanceled
+                        ? `<button class="cancel-btn disabled" disabled>ĐÃ HỦY</button>`
+                        : `<button class="cancel-btn">HỦY ĐƠN HÀNG</button>`
+                    }
+                    <div class="rating-container">
+                        <label>Đánh giá:</label>
+                        <div class="rating" data-index="${index}">
+                            ${[1,2,3,4,5].map(i => `
+                                <img src="../../image/Star 22.svg" 
+                                    alt="star" 
+                                    class="star ${i <= rating ? 'active' : ''}" 
+                                    data-star="${i}">
+                            `).join("")}
+                        </div>
+                    </div>
+                </div>
+            </div>`;
+        }).join("");
+
+        attachEvents();
+    }
+
+    // ===== Gắn sự kiện =====
+    function attachEvents() {
+        // --- Hủy đơn hàng ---
+        document.querySelectorAll(".cancel-btn").forEach(btn => {
+            btn.addEventListener("click", (e) => {
+                const box = e.target.closest(".box-history");
+                const index = box.getAttribute("data-index");
+
+                if (history[index].status === "Đã hủy") return;
+
+                if (confirm("Bạn có chắc muốn hủy đơn hàng này không?")) {
+                    history[index].status = "Đã hủy";
+                    localStorage.setItem("orderHistory", JSON.stringify(history));
+                    renderOrders();
+                    alert("Đơn hàng đã được chuyển sang trạng thái 'Đã hủy'");
+                }
+            });
+        });
+
+        // --- Đánh giá sao ---
+        document.querySelectorAll(".rating").forEach(ratingDiv => {
+            ratingDiv.addEventListener("click", (e) => {
+                if (e.target.classList.contains("star")) {
+                    const orderIndex = ratingDiv.getAttribute("data-index");
+                    const starValue = parseInt(e.target.getAttribute("data-star"));
+
+                    // Không cho đánh giá đơn đã hủy
+                    if (history[orderIndex].status === "Đã hủy") {
+                        alert("Không thể đánh giá đơn hàng đã hủy!");
+                        return;
+                    }
+
+                    // Cập nhật điểm đánh giá
+                    history[orderIndex].rating = starValue;
+                    localStorage.setItem("orderHistory", JSON.stringify(history));
+
+                    // Hiển thị lại số sao
+                    updateStars(ratingDiv, starValue);
+                }
+            });
+        });
+    }
+
+    // ===== Hàm tô sáng sao =====
+    function updateStars(container, starValue) {
+        const stars = container.querySelectorAll(".star");
+        stars.forEach(star => {
+            const val = parseInt(star.getAttribute("data-star"));
+            star.classList.toggle("active", val <= starValue);
+        });
+    }
+
+    renderOrders();
+});
+</script>
+
 
 </body>
 </html>
